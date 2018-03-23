@@ -42,7 +42,7 @@ var lastProcessed uint64
 func messageHandle(msg *stan.Msg) {
 	if msg.Sequence > lastProcessed {
 		fileflags := os.O_WRONLY | os.O_APPEND | os.O_CREATE
-		f, err := os.OpenFile(msg.Subject+".log", fileflags, 0660)
+		f, err := os.OpenFile("/var/log/"+msg.Subject+".log", fileflags, 0660)
 		if err != nil {
 			log.Fatalf("error opening file: %v", err)
 		}

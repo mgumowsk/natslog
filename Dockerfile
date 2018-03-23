@@ -9,5 +9,7 @@ FROM alpine
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 WORKDIR /root
 COPY --from=builder /go/src/app/main .
+EXPOSE 80
+
 CMD ["./main"]
 
