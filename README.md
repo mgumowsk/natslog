@@ -1,7 +1,7 @@
 # natslog
 A lightweight log aggregator using NATS
 
-![natslog](https://raw.githubusercontent.com/mgumowsk/natslog/naster/natslog.png)
+![natslog](https://raw.githubusercontent.com/mgumowsk/natslog/master/natslog.png)
 
 # Setup
 Start a NATS Streaming instance using [docker nats-streaming image](https://hub.docker.com/_/nats-streaming/)
