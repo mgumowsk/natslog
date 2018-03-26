@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"time"
@@ -21,6 +22,7 @@ func main() {
 }
 
 func run() error {
+	const serviceName = "servicename"
 	conn, err := stan.Connect(
 		"test-cluster",
 		"natslog-client",
@@ -30,11 +32,15 @@ func run() error {
 		return err
 	}
 	defer connectionCloser(conn)
+	err = conn.Publish("natslog.subscribe", []byte(serviceName))
+	if err != nil {
+		return err
+	}
 
 	for i := 0; i < 10; i++ {
 		log.Print("Publish")
 		time.Sleep(time.Second)
-		err := conn.Publish("natslog", []byte("Hello world\n"))
+		err := conn.Publish(serviceName, []byte(fmt.Sprintf("Hello world %d\n", i)))
 		if err != nil {
 			return err
 		}

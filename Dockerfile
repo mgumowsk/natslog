@@ -8,8 +8,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main /go/src/app/
 FROM alpine
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 WORKDIR /root
-COPY --from=builder /go/src/app/main .
+COPY --from=builder /go/src/app/main /usr/bin/natslog
 EXPOSE 80
 
-CMD ["./main"]
-
+ENTRYPOINT ["/usr/bin/natslog"]

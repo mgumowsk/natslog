@@ -6,13 +6,12 @@ A lightweight log aggregator using NATS
 # Setup
 Start a NATS Streaming instance using [docker nats-streaming image](https://hub.docker.com/_/nats-streaming/)
 ```
-$ docker run -d -p 4222:4222 -name nats-streaming nats-streaming
+$ docker run -d -p 4222:4222 --name nats-streaming nats-streaming
 ```
 
 Start natslog server
 ```
-$ docker run -d natslog-server
-$ docker run -d -e NATS_SERVER=nats://nats-streaming:4222 -p 80:80 --link nats-streaming:nats-streaming mgumowsk/natslog
+$ docker run -d -e NATS_SERVER=nats://nats-streaming:4222 -p 80:80 --link nats-streaming:nats-streaming --name natslog mgumowsk/natslog
 ```
 the events are written to /var/log/natslog.log
 
@@ -38,9 +37,9 @@ Client name for natslog server, default "natslog-server"
     
 NATS streaming durable name, default "natslog-server"
 
-    NATS_SUBJECT
+    NATSLOG_SUBSCRIBE_SUBJECT
     
-NATS message subject and log filename, default "natslog"
+Register new service using NATS message subject and log filename, default "natslog.subscribe"
 
     HTTP_ENABLED
     
